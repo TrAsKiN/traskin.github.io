@@ -1,8 +1,7 @@
 /**
  * Minimal Repository
  */
-export interface MinimalRepository
-{
+export interface MinimalRepository {
   id: number;
   node_id: string;
   name: string;
@@ -77,12 +76,12 @@ export interface MinimalRepository
   created_at?: string | null;
   updated_at?: string | null;
   permissions?: {
-    admin?: boolean
-    maintain?: boolean
-    push?: boolean
-    triage?: boolean
-    pull?: boolean
-    [k: string]: unknown
+    admin?: boolean;
+    maintain?: boolean;
+    push?: boolean;
+    triage?: boolean;
+    pull?: boolean;
+    [k: string]: unknown;
   };
   role_name?: string;
   temp_clone_token?: string;
@@ -91,12 +90,12 @@ export interface MinimalRepository
   network_count?: number;
   code_of_conduct?: CodeOfConduct;
   license?: {
-    key?: string
-    name?: string
-    spdx_id?: string
-    url?: string
-    node_id?: string
-    [k: string]: unknown
+    key?: string;
+    name?: string;
+    spdx_id?: string;
+    url?: string;
+    node_id?: string;
+    [k: string]: unknown;
   } | null;
   forks?: number;
   open_issues?: number;
@@ -105,18 +104,18 @@ export interface MinimalRepository
   web_commit_signoff_required?: boolean;
   security_and_analysis?: {
     advanced_security?: {
-      status?: 'enabled' | 'disabled'
-      [k: string]: unknown
-    }
+      status?: 'enabled' | 'disabled';
+      [k: string]: unknown;
+    };
     secret_scanning?: {
-      status?: 'enabled' | 'disabled'
-      [k: string]: unknown
-    }
+      status?: 'enabled' | 'disabled';
+      [k: string]: unknown;
+    };
     secret_scanning_push_protection?: {
-      status?: 'enabled' | 'disabled'
-      [k: string]: unknown
-    }
-    [k: string]: unknown
+      status?: 'enabled' | 'disabled';
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
   } | null;
 
   [k: string]: unknown;
@@ -125,8 +124,7 @@ export interface MinimalRepository
 /**
  * A GitHub user.
  */
-export interface SimpleUser
-{
+export interface SimpleUser {
   name?: string | null;
   email?: string | null;
   login: string;
@@ -155,8 +153,7 @@ export interface SimpleUser
 /**
  * Code Of Conduct
  */
-export interface CodeOfConduct
-{
+export interface CodeOfConduct {
   key: string;
   name: string;
   url: string;
