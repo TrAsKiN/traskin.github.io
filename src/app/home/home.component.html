@@ -1,72 +1,129 @@
 <main class="container">
   <div class="shadow rounded bg-secondary bg-opacity-25 px-3 py-2 mb-3">
     <h1 class="display-1">
-      TrAsKiN <small class="text-muted fs-1">&middot; Développeur web PHP/Symfony</small>
+      TrAsKiN
+      <small class="text-muted fs-1">
+        &middot; Développeur web PHP/Symfony
+      </small>
     </h1>
     <ul class="list-inline">
       <li class="list-inline-item">Connaissance des langages</li>
-      <li *ngFor="let language of languages" class="list-inline-item">
+      @for (language of languages; track language) {
+      <li class="list-inline-item">
         <span class="badge bg-secondary">{{ language }}</span>
       </li>
+      }
     </ul>
     <p class="lead">
-      Je suis développeur web depuis plus de 15 ans. Je suis un autodidacte passionné et j'ai depuis obtenu plusieurs certifications et diplômes. J'ai créé divers projets personnels et professionnels en utilisant les dernières technologies lorsque cela était possible et pertinent.
+      Je suis développeur web depuis plus de 15 ans. Je suis un autodidacte
+      passionné et j'ai depuis obtenu plusieurs certifications et diplômes. J'ai
+      créé divers projets personnels et professionnels en utilisant les
+      dernières technologies lorsque cela était possible et pertinent.
     </p>
     <ul class="list-inline text-center">
-      <li *ngFor="let social of socials" class="list-inline-item">
+      @for (social of socials; track social) {
+      <li class="list-inline-item">
         <a class="link-body-emphasis" href="{{ social.url }}" target="_blank">
           <i class="bi bi-{{ social.icon }}"></i>
         </a>
       </li>
+      }
     </ul>
   </div>
   <h2 class="display-6">Mes projets</h2>
-  <h3 class="h4" id="anchor-online">En ligne</h3>
+  <h3 class="h4 mt-3" id="anchor-online">En ligne</h3>
   <div class="row row-cols-1 row-cols-md-2 g-2 my-3">
-    <div *ngFor="let project of projects" class="col">
+    @for (project of activeProjects; track project) {
+    <div class="col">
       <div class="card h-100 bg-secondary bg-opacity-10">
-        <img alt="Aperçu de {{ project.name }}" class="card-img-top" src="assets/{{ project.image }}" />
+        <div class="ratio ratio-16x9">
+          <img
+            alt="Aperçu de {{ project.name }}"
+            class="card-img-top object-fit-cover"
+            src="assets/{{ project.image }}"
+          />
+        </div>
         <div class="card-body">
           <h4 class="card-title h6">{{ project.name }}</h4>
           <ul class="list-inline mb-2">
-            <li *ngFor="let technology of project.technologies" class="list-inline-item">
+            @for (technology of project.technologies; track technology) {
+            <li class="list-inline-item">
               <span class="badge bg-secondary">{{ technology }}</span>
             </li>
+            }
           </ul>
           <p [innerHtml]="project.description" class="card-text fw-light"></p>
         </div>
         <div class="card-footer text-center d-grid gap-2">
-          <a class="card-link btn btn-sm btn-outline-secondary stretched-link" href="{{ project.url }}" target="_blank">
-            Visiter le site <small><i class="bi bi-box-arrow-up-right"></i></small>
+          <a
+            class="card-link btn btn-sm btn-outline-secondary stretched-link"
+            href="{{ project.url }}"
+            target="_blank"
+          >
+            Visiter le site
+            <small><i class="bi bi-box-arrow-up-right"></i></small>
           </a>
         </div>
       </div>
     </div>
+    }
   </div>
-  <h3 class="h4" id="anchor-open-source">Open source</h3>
+  <h3 class="h4 mt-3" id="anchor-online">Archivés</h3>
+  <div class="row row-cols-1 row-cols-md-2 g-2 my-3">
+    @for (project of archivedProjects; track project) {
+    <div class="col">
+      <div class="card h-100 bg-secondary bg-opacity-10">
+        <div class="card-body">
+          <h4 class="card-title h6">{{ project.name }}</h4>
+          <ul class="list-inline mb-2">
+            @for (technology of project.technologies; track technology) {
+            <li class="list-inline-item">
+              <span class="badge bg-secondary">{{ technology }}</span>
+            </li>
+            }
+          </ul>
+          <p [innerHtml]="project.description" class="card-text fw-light"></p>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  <h3 class="h4 mt-5" id="anchor-open-source">Open source</h3>
   <div class="row row-cols-1 row-cols-md-4 g-2 my-3" id="projects">
-    <div *ngFor="let repo of reposList$ | async" class="col">
+    @for (repo of reposList(); track repo.id) {
+    <div class="col">
       <div class="card h-100 bg-secondary bg-opacity-10">
         <div class="card-body">
           <h4 class="card-title">{{ repo.name }}</h4>
           <p class="card-text">{{ repo.description }}</p>
         </div>
         <div class="card-footer text-center d-flex gap-3 align-items-center">
-          <a class="card-link btn btn-sm btn-outline-secondary stretched-link flex-shrink-1 flex-grow-1" href="{{ repo.html_url }}" target="_blank">
+          <a
+            class="card-link btn btn-sm btn-outline-secondary stretched-link flex-shrink-1 flex-grow-1"
+            href="{{ repo.html_url }}"
+            target="_blank"
+          >
             Code source
           </a>
           <div>
-            <i *ngIf="!repo.stargazers_count" class="bi bi-star"></i>
-            <i *ngIf="repo.stargazers_count" class="bi bi-star-fill"></i>
+            @if (!repo.stargazers_count) {
+            <i class="bi bi-star"></i>
+            } @if (repo.stargazers_count) {
+            <i class="bi bi-star-fill"></i>
+            }
             {{ repo.stargazers_count }}
           </div>
           <div>
-            <i *ngIf="!repo.forks_count" class="bi bi-sign-intersection-y"></i>
-            <i *ngIf="repo.forks_count" class="bi bi-sign-intersection-y-fill"></i>
+            @if (!repo.forks_count) {
+            <i class="bi bi-sign-intersection-y"></i>
+            } @if (repo.forks_count) {
+            <i class="bi bi-sign-intersection-y-fill"></i>
+            }
             {{ repo.forks_count }}
           </div>
         </div>
       </div>
     </div>
+    }
   </div>
 </main>
