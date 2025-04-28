@@ -18,8 +18,8 @@ export class GithubService {
       map((reposList) =>
         reposList
           .filter((repo) => !repo.fork)
-          .filter((repo) => repo.description)
           .filter((repo) => !repo.is_template)
+          .filter((repo) => repo.description)
       ),
       map((reposList) =>
         reposList.sort(
