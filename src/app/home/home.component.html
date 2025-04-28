@@ -3,7 +3,7 @@
     <h1 class="display-1">
       TrAsKiN
       <small class="text-muted fs-1">
-        &middot; Développeur web PHP/Symfony
+        &middot; Développeur web fullstack
       </small>
     </h1>
     <ul class="list-inline">
@@ -15,9 +15,16 @@
       }
     </ul>
     <p class="lead">
-      Curieux et passionné, je baigne dans le monde du développement web depuis plus de 15 ans. Autodidacte de nature, j'ai construit mes compétences par l'expérimentation, la pratique et la formation continue, validées par des certifications et diplômes.
-      Cette démarche m'a permis de maîtriser un large éventail de technologies web, du front-end au back-end, en passant par les bases de données. Mon portfolio témoigne de ma créativité et de mon expertise à travers des projets variés et stimulants.
-      Toujours à l'affût des dernières innovations, je suis enthousiaste à l'idée de mettre mes compétences au service de nouveaux défis et de contribuer à des projets ambitieux.
+      Curieux et passionné, je baigne dans le monde du développement web depuis
+      plus de 15 ans. Autodidacte de nature, j'ai construit mes compétences par
+      l'expérimentation, la pratique et la formation continue, validées par des
+      certifications et diplômes. Cette démarche m'a permis de maîtriser un
+      large éventail de technologies web, du front-end au back-end, en passant
+      par les bases de données. Mon portfolio témoigne de ma créativité et de
+      mon expertise à travers des projets variés et stimulants. Toujours à
+      l'affût des dernières innovations, je suis enthousiaste à l'idée de mettre
+      mes compétences au service de nouveaux défis et de contribuer à des
+      projets ambitieux.
     </p>
     <ul class="list-inline text-center">
       @for (social of socials; track social) {
@@ -35,6 +42,7 @@
     @for (project of activeProjects; track project) {
     <div class="col">
       <div class="card h-100 bg-secondary bg-opacity-10">
+        @if (project.image) {
         <div class="ratio ratio-16x9">
           <img
             alt="Aperçu de {{ project.name }}"
@@ -42,6 +50,7 @@
             src="assets/{{ project.image }}"
           />
         </div>
+        }
         <div class="card-body">
           <h4 class="card-title h6">{{ project.name }}</h4>
           <ul class="list-inline mb-2">
@@ -83,6 +92,18 @@
           </ul>
           <p [innerHtml]="project.description" class="card-text fw-light"></p>
         </div>
+        @if (project.url) {
+        <div class="card-footer text-center d-grid gap-2">
+          <a
+            class="card-link btn btn-sm btn-outline-secondary stretched-link"
+            href="{{ project.url }}"
+            target="_blank"
+          >
+            Visiter le site
+            <small><i class="bi bi-box-arrow-up-right"></i></small>
+          </a>
+        </div>
+        }
       </div>
     </div>
     }
@@ -95,6 +116,43 @@
         <div class="card-body">
           <h4 class="card-title">{{ repo.name }}</h4>
           <p class="card-text">{{ repo.description }}</p>
+        </div>
+        <div class="card-footer text-center d-flex gap-3 align-items-center">
+          <a
+            class="card-link btn btn-sm btn-outline-secondary stretched-link flex-shrink-1 flex-grow-1"
+            href="{{ repo.html_url }}"
+            target="_blank"
+          >
+            Code source
+          </a>
+          <div>
+            @if (!repo.stargazers_count) {
+            <i class="bi bi-star"></i>
+            } @if (repo.stargazers_count) {
+            <i class="bi bi-star-fill"></i>
+            }
+            {{ repo.stargazers_count }}
+          </div>
+          <div>
+            @if (!repo.forks_count) {
+            <i class="bi bi-sign-intersection-y"></i>
+            } @if (repo.forks_count) {
+            <i class="bi bi-sign-intersection-y-fill"></i>
+            }
+            {{ repo.forks_count }}
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+  <h4 class="h4 mt-5" id="anchor-open-source-archived">Archives</h4>
+  <div class="row row-cols-2 row-cols-md-5 g-2 my-3" id="projects">
+    @for (repo of reposListArchived(); track repo.id) {
+    <div class="col">
+      <div class="card h-100 bg-secondary bg-opacity-10">
+        <div class="card-body">
+          <h5 class="card-title">{{ repo.name }}</h5>
         </div>
         <div class="card-footer text-center d-flex gap-3 align-items-center">
           <a
