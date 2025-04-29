@@ -33,22 +33,15 @@ export class HomeComponent {
   public activeProjects = [
     {
       name: 'Los Santos Paradise',
-      image: 'lsp.png',
+      image: 'lsparadise.png',
       technologies: ['Symfony', 'Bootstrap', 'Lua', 'Docker'],
       description:
         "<strong>Los Santos Paradise</strong> est un projet toujours en cours de développement. Il s'agit d'un serveur modifié par mes soins pour le jeu GTA V utilisant FiveM. Le code est écrit en Lua et certaines interfaces en jeu utilisent du JavaScript.",
       url: 'https://lsparadise.fr/',
     },
     {
-      name: 'OWL Buvette',
-      image: 'owl-buvette.png',
-      technologies: ['Angular', 'Bootstrap'],
-      description:
-        '<strong>OWL Buvette</strong> est un outil créé à l\'origine pour le streamer <a class="position-relative z-3" href="https://www.twitch.tv/fefegg" target="_blank">Féfé</a> afin de suivre sur un seul écran les flux de son live et celui de l\'Overwatch League.',
-      url: 'https://traskin.github.io/owl-buvette/',
-    },
-    {
       name: 'Nikke Tools',
+      image: 'nikke-tools.png',
       technologies: ['Angular', 'Material'],
       description:
         '<strong>Nikke Tools</strong> est un projet de site web pour le jeu mobile Nikke. Il permet de suivre ses personnages pour les optimiser au mieux.',
@@ -69,6 +62,14 @@ export class HomeComponent {
       description:
         "<strong>Tech Watch</strong> vous permet de regrouper toutes vos sources d'informations en un seul endroit. Que ce soit des utilisateurs Twitter que vous suivez assidûment ou des flux RSS que vous consultez régulièrement, vous pouvez créer et partager une liste personnalisée.",
       url: null,
+    },
+    {
+      name: 'OWL Buvette',
+      image: 'owl-buvette.png',
+      technologies: ['Angular', 'Bootstrap'],
+      description:
+        '<strong>OWL Buvette</strong> est un outil créé à l\'origine pour le streamer <a class="position-relative z-3" href="https://www.twitch.tv/fefegg" target="_blank">Féfé</a> afin de suivre sur un seul écran les flux de son live et celui de l\'Overwatch League.',
+      url: 'https://traskin.github.io/owl-buvette/',
     },
   ];
   public socials = [
