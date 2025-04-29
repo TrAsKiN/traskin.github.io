@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { GithubService } from '../github.service';
+import { Profile } from '../profile';
 
 @Component({
   selector: 'tg-home',
@@ -22,15 +23,29 @@ import { GithubService } from '../github.service';
   ],
 })
 export class HomeComponent {
+  public profile = Profile;
+  private reposList$ = this.github
+    .getReposList()
+    .pipe(
+      map((repos) =>
+        repos.filter(
+          (repo) =>
+            !(
+              this.activeProjects.some(
+                (project) => project.sources === repo.html_url
+              ) ||
+              this.archivedProjects.some(
+                (project) => project.sources === repo.html_url
+              )
+            )
+        )
+      )
+    );
   public reposList = toSignal(
-    this.github
-      .getReposList()
-      .pipe(map((repos) => repos.filter((repo) => !repo.archived)))
+    this.reposList$.pipe(map((repos) => repos.filter((repo) => !repo.archived)))
   );
   public reposListArchived = toSignal(
-    this.github
-      .getReposList()
-      .pipe(map((repos) => repos.filter((repo) => repo.archived)))
+    this.reposList$.pipe(map((repos) => repos.filter((repo) => repo.archived)))
   );
   public languages = [
     'HTML',
@@ -86,6 +101,7 @@ export class HomeComponent {
         '<strong>OWL Buvette</strong> est un outil créé à l\'origine pour le streamer <a class="position-relative z-3" href="https://www.twitch.tv/fefegg" target="_blank">Féfé</a> afin de suivre sur un seul écran les flux de son live et celui de l\'Overwatch League.',
       url: 'https://traskin.github.io/owl-buvette/',
       sources: 'https://github.com/TrAsKiN/owl-buvette',
+      stars: this.github.getStargazersCount('owl-buvette'),
     },
   ];
   public socials = [

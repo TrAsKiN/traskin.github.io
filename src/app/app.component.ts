@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { Profile } from './profile';
 
 @Component({
   selector: 'tg-root',
@@ -9,7 +10,10 @@ import { RouterModule } from '@angular/router';
   imports: [RouterModule],
 })
 export class AppComponent {
+  profile = Profile;
   constructor(title: Title) {
-    title.setTitle('MARCHAL "TrAsKiN" Simon · Développeur web PHP/Symfony');
+    title.setTitle(
+      `${this.profile.lastName} "${this.profile.nickname}" ${this.profile.firstName} · ${this.profile.role}`
+    );
   }
 }

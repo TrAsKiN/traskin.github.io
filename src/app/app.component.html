@@ -1,13 +1,16 @@
 <header>
   <nav class="navbar">
     <div class="container">
-      <span class="navbar-brand h1">MARCHAL Simon</span>
+      <span class="navbar-brand h1">
+        {{ profile.lastName }} {{ profile.firstName }}
+      </span>
     </div>
   </nav>
 </header>
 <router-outlet></router-outlet>
 <footer class="text-center mt-4 mb-3">
   <small class="text-muted">
-    MARCHAL "TrAsKiN" Simon &middot; Développeur web fullstack
+    {{ profile.lastName }} "{{ profile.nickname }}"
+    {{ profile.firstName }} &middot; {{ profile.role }}
   </small>
 </footer>

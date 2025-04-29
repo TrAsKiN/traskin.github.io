@@ -28,4 +28,12 @@ export class GithubService {
       )
     );
   }
+
+  async getStargazersCount(repoName: string) {
+    const repo = await this.oktokit.repos.get({
+      owner: 'TrAsKiN',
+      repo: repoName,
+    });
+    return repo.data.stargazers_count;
+  }
 }
