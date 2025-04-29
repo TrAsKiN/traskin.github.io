@@ -37,7 +37,6 @@
     </ul>
   </div>
   <h2 class="display-6">Mes projets</h2>
-  <h3 class="h4 mt-3" id="anchor-online">En ligne</h3>
   <div class="row row-cols-1 row-cols-md-2 g-2 my-3">
     @for (project of activeProjects; track project) {
     <div class="col">
@@ -62,21 +61,31 @@
           </ul>
           <p [innerHtml]="project.description" class="card-text fw-light"></p>
         </div>
-        <div class="card-footer text-center d-grid gap-2">
+        <div class="card-footer text-center d-flex gap-2">
           <a
-            class="card-link btn btn-sm btn-outline-secondary stretched-link"
+            class="card-link flex-fill btn btn-sm btn-outline-secondary stretched-link"
             href="{{ project.url }}"
             target="_blank"
           >
             Visiter le site
             <small><i class="bi bi-box-arrow-up-right"></i></small>
           </a>
+          @if (project.sources) {
+          <a
+            class="card-link flex-fill btn btn-sm btn-outline-secondary position-relative z-3"
+            href="{{ project.sources }}"
+            target="_blank"
+          >
+            Voir les sources
+            <small><i class="bi bi-box-arrow-up-right"></i></small>
+          </a>
+          }
         </div>
       </div>
     </div>
     }
   </div>
-  <h3 class="h4 mt-3" id="anchor-online">Archivés</h3>
+  <h3 class="h5 mt-3" id="anchor-online">Archives</h3>
   <div class="row row-cols-1 row-cols-md-2 g-2 my-3">
     @for (project of archivedProjects; track project) {
     <div class="col">
@@ -93,15 +102,25 @@
           <p [innerHtml]="project.description" class="card-text fw-light"></p>
         </div>
         @if (project.url) {
-        <div class="card-footer text-center d-grid gap-2">
+        <div class="card-footer text-center d-flex gap-2">
           <a
-            class="card-link btn btn-sm btn-outline-secondary stretched-link"
+            class="card-link flex-fill btn btn-sm btn-outline-secondary stretched-link"
             href="{{ project.url }}"
             target="_blank"
           >
             Visiter le site
             <small><i class="bi bi-box-arrow-up-right"></i></small>
           </a>
+          @if (project.sources) {
+          <a
+            class="card-link flex-fill btn btn-sm btn-outline-secondary position-relative z-3"
+            href="{{ project.sources }}"
+            target="_blank"
+          >
+            Voir les sources
+            <small><i class="bi bi-box-arrow-up-right"></i></small>
+          </a>
+          }
         </div>
         }
       </div>
@@ -146,7 +165,7 @@
     </div>
     }
   </div>
-  <h4 class="h4 mt-5" id="anchor-open-source-archived">Archives</h4>
+  <h4 class="h5 mt-5" id="anchor-open-source-archived">Archives</h4>
   <div class="row row-cols-2 row-cols-md-5 g-2 my-3" id="projects">
     @for (repo of reposListArchived(); track repo.id) {
     <div class="col">
