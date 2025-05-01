@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Octokit } from '@octokit/rest';
 import { map } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { MinimalRepository } from './types/minimal-repository';
+import { MinimalRepository } from './repository';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GithubService {
-  oktokit = new Octokit();
+  private oktokit = new Octokit();
 
-  getReposList() {
-    return fromPromise(
-      this.oktokit.repos.listForUser({ username: 'TrAsKiN' })
-    ).pipe(
+  public reposList = toSignal(
+    fromPromise(this.oktokit.repos.listForUser({ username: 'TrAsKiN' })).pipe(
       map((response: { data: MinimalRepository[] }) => response.data),
       map((reposList) =>
         reposList
@@ -26,14 +25,6 @@ export class GithubService {
           (a, b) => (b.stargazers_count ?? 0) - (a.stargazers_count ?? 0)
         )
       )
-    );
-  }
-
-  async getStargazersCount(repoName: string) {
-    const repo = await this.oktokit.repos.get({
-      owner: 'TrAsKiN',
-      repo: repoName,
-    });
-    return repo.data.stargazers_count;
-  }
+    )
+  );
 }

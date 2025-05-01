@@ -7,9 +7,9 @@
     <ul class="list-inline">
       <li class="list-inline-item">Connaissance des langages</li>
       @for (language of languages; track language) {
-      <li class="list-inline-item">
-        <span class="badge bg-secondary">{{ language }}</span>
-      </li>
+        <li class="list-inline-item">
+          <span class="badge bg-secondary">{{ language }}</span>
+        </li>
       }
     </ul>
     <p class="lead">
@@ -26,190 +26,52 @@
     </p>
     <ul class="list-inline text-center">
       @for (social of socials; track social) {
-      <li class="list-inline-item">
-        <a class="link-body-emphasis" href="{{ social.url }}" target="_blank">
-          <i class="bi bi-{{ social.icon }}"></i>
-        </a>
-      </li>
+        <li class="list-inline-item">
+          <a class="link-body-emphasis" href="{{ social.url }}" target="_blank">
+            <i class="bi bi-{{ social.icon }}"></i>
+          </a>
+        </li>
       }
     </ul>
   </div>
   <h2 class="display-6">Mes projets</h2>
   <div class="row row-cols-1 row-cols-md-2 g-2 my-3">
-    @for (project of activeProjects; track project) {
-    <div class="col">
-      <div class="card h-100 bg-secondary bg-opacity-10">
-        @if (project.image) {
-        <div class="ratio ratio-16x9">
-          <img
-            alt="Aperçu de {{ project.name }}"
-            class="card-img-top object-fit-cover"
-            src="assets/{{ project.image }}"
-          />
+    @for (project of projects(); track project.id) {
+      @if (!project.archived) {
+        <div class="col">
+          <tg-project [project]="project" />
         </div>
-        }
-        <div class="card-body">
-          <h4 class="card-title h6">{{ project.name }}</h4>
-          <ul class="list-inline mb-2">
-            @for (technology of project.technologies; track technology) {
-            <li class="list-inline-item">
-              <span class="badge bg-secondary">{{ technology }}</span>
-            </li>
-            }
-          </ul>
-          <p [innerHtml]="project.description" class="card-text fw-light"></p>
-        </div>
-        <div class="card-footer text-center d-flex gap-2">
-          <a
-            class="card-link flex-fill btn btn-sm btn-outline-secondary stretched-link"
-            href="{{ project.url }}"
-            target="_blank"
-          >
-            Visiter le site
-            <small><i class="bi bi-box-arrow-up-right"></i></small>
-          </a>
-          @if (project.sources) {
-          <a
-            class="card-link flex-fill btn btn-sm btn-outline-secondary position-relative z-3 ms-0"
-            href="{{ project.sources }}"
-            target="_blank"
-          >
-            Voir les sources
-            <small><i class="bi bi-box-arrow-up-right"></i></small>
-          </a>
-          }
-        </div>
-      </div>
-    </div>
+      }
     }
   </div>
   <h3 class="h5 mt-3" id="anchor-online">Archives</h3>
-  <div class="row row-cols-1 row-cols-md-2 g-2 my-3">
-    @for (project of archivedProjects; track project) {
-    <div class="col">
-      <div class="card h-100 bg-secondary bg-opacity-10">
-        <div class="card-body">
-          <h4 class="card-title h6">{{ project.name }}</h4>
-          <ul class="list-inline mb-2">
-            @for (technology of project.technologies; track technology) {
-            <li class="list-inline-item">
-              <span class="badge bg-secondary">{{ technology }}</span>
-            </li>
-            }
-          </ul>
-          <p [innerHtml]="project.description" class="card-text fw-light"></p>
+  <div class="row row-cols-1 row-cols-md-3 g-2 my-3">
+    @for (project of projects(); track project.id) {
+      @if (project.archived) {
+        <div class="col">
+          <tg-project [project]="project" />
         </div>
-        @if (project.url) {
-        <div class="card-footer text-center d-flex gap-3 align-items-center">
-          <a
-            class="card-link flex-fill btn btn-sm btn-outline-secondary stretched-link"
-            href="{{ project.url }}"
-            target="_blank"
-          >
-            Visiter le site
-            <small><i class="bi bi-box-arrow-up-right"></i></small>
-          </a>
-          @if (project.sources) {
-          <a
-            class="card-link flex-fill btn btn-sm btn-outline-secondary position-relative z-3 ms-0"
-            href="{{ project.sources }}"
-            target="_blank"
-          >
-            Voir les sources
-            <small><i class="bi bi-box-arrow-up-right"></i></small>
-          </a>
-          } @let stars = (project.stars | async); @if (stars) {
-          <div>
-            <div>
-              @if (!stars) {
-              <i class="bi bi-star"></i>
-              } @if (stars) {
-              <i class="bi bi-star-fill"></i>
-              }
-              {{ stars }}
-            </div>
-          </div>
-          }
-        </div>
-        }
-      </div>
-    </div>
+      }
     }
   </div>
   <h3 class="h4 mt-5" id="anchor-open-source">Open source</h3>
   <div class="row row-cols-1 row-cols-md-4 g-2 my-3" id="projects">
-    @for (repo of reposList(); track repo.id) {
-    <div class="col">
-      <div class="card h-100 bg-secondary bg-opacity-10">
-        <div class="card-body">
-          <h4 class="card-title">{{ repo.name }}</h4>
-          <p class="card-text">{{ repo.description }}</p>
+    @for (repo of repositories(); track repo.id) {
+      @if (!repo.archived) {
+        <div class="col">
+          <tg-repository [repository]="repo" />
         </div>
-        <div class="card-footer text-center d-flex gap-3 align-items-center">
-          <a
-            class="card-link btn btn-sm btn-outline-secondary stretched-link flex-shrink-1 flex-grow-1"
-            href="{{ repo.html_url }}"
-            target="_blank"
-          >
-            Voir les sources
-            <small><i class="bi bi-box-arrow-up-right"></i></small>
-          </a>
-          <div>
-            @if (!repo.stargazers_count) {
-            <i class="bi bi-star"></i>
-            } @if (repo.stargazers_count) {
-            <i class="bi bi-star-fill"></i>
-            }
-            {{ repo.stargazers_count }}
-          </div>
-          <div>
-            @if (!repo.forks_count) {
-            <i class="bi bi-sign-intersection-y"></i>
-            } @if (repo.forks_count) {
-            <i class="bi bi-sign-intersection-y-fill"></i>
-            }
-            {{ repo.forks_count }}
-          </div>
-        </div>
-      </div>
-    </div>
+      }
     }
   </div>
   <h4 class="h5 mt-5" id="anchor-open-source-archived">Archives</h4>
   <div class="row row-cols-2 row-cols-md-6 g-2 my-3" id="projects">
-    @for (repo of reposListArchived(); track repo.id) {
-    <div class="col">
-      <div class="card h-100 bg-secondary bg-opacity-10">
-        <div class="card-body">
-          <h5 class="card-title">{{ repo.name }}</h5>
+    @for (repo of repositories(); track repo.id) {
+      @if (repo.archived) {
+        <div class="col">
+          <tg-repository [repository]="repo" [archived]="repo.archived" />
         </div>
-        <div class="card-footer text-center d-flex gap-3 align-items-center">
-          <a
-            class="card-link btn btn-sm btn-outline-secondary stretched-link flex-shrink-1 flex-grow-1"
-            href="{{ repo.html_url }}"
-            target="_blank"
-          >
-            <i class="bi bi-box-arrow-up-right"></i>
-          </a>
-          <div>
-            @if (!repo.stargazers_count) {
-            <i class="bi bi-star"></i>
-            } @if (repo.stargazers_count) {
-            <i class="bi bi-star-fill"></i>
-            }
-            {{ repo.stargazers_count }}
-          </div>
-          <div>
-            @if (!repo.forks_count) {
-            <i class="bi bi-sign-intersection-y"></i>
-            } @if (repo.forks_count) {
-            <i class="bi bi-sign-intersection-y-fill"></i>
-            }
-            {{ repo.forks_count }}
-          </div>
-        </div>
-      </div>
-    </div>
+      }
     }
   </div>
 </main>
