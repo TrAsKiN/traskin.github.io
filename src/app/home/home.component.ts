@@ -57,23 +57,6 @@ export class HomeComponent {
       url: 'https://nikke.traskin.net/fr/',
     },
     {
-      id: 'slideshow',
-      name: 'Slideshow',
-      technologies: ['Angular', 'Bootstrap', 'Google API'],
-      description:
-        "<strong>Slideshow</strong> est un projet permettant de générer un diaporama à partir d'un album Google Photos. (en cours de validation par Google)",
-      url: 'https://slideshow.traskin.net/',
-    },
-    {
-      id: 'tech-watch',
-      name: 'Tech Watch',
-      image: 'tech-watch.png',
-      technologies: ['Symfony', 'React.js', 'Bootstrap', 'API', 'Docker'],
-      description:
-        "<strong>Tech Watch</strong> vous permet de regrouper toutes vos sources d'informations en un seul endroit. Que ce soit des utilisateurs Twitter que vous suivez assidûment ou des flux RSS que vous consultez régulièrement, vous pouvez créer et partager une liste personnalisée.",
-      archived: true,
-    },
-    {
       id: 'owl-buvette',
       name: 'OWL Buvette',
       image: 'owl-buvette.png',
@@ -85,6 +68,23 @@ export class HomeComponent {
       stars: this.github
         .reposList()
         ?.find((repo) => repo.name === 'owl-buvette')?.stargazers_count,
+      archived: true,
+    },
+    {
+      id: 'tech-watch',
+      name: 'Tech Watch',
+      image: 'tech-watch.png',
+      technologies: ['Symfony', 'React.js', 'Bootstrap', 'API', 'Docker'],
+      description:
+        "<strong>Tech Watch</strong> vous permet de regrouper toutes vos sources d'informations en un seul endroit. Que ce soit des utilisateurs Twitter que vous suivez assidûment ou des flux RSS que vous consultez régulièrement, vous pouvez créer et partager une liste personnalisée.",
+      archived: true,
+    },
+    {
+      id: 'slideshow',
+      name: 'Slideshow',
+      technologies: ['Angular', 'Bootstrap', 'Google API'],
+      description:
+        "<strong>Slideshow</strong> est un projet permettant de générer un diaporama à partir d'un album Google Photos. Des changements au niveau de l'API ont forcé l'arrêt de ce projet.",
       archived: true,
     },
   ]);

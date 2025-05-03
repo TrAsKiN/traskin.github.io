@@ -1,5 +1,5 @@
 <div class="card h-100 bg-secondary bg-opacity-10">
-  @if (project().image) {
+  @if (project().image && !project().archived) {
     <div class="ratio ratio-16x9">
       <img
         alt="Aperçu de {{ project().name }}"
